@@ -6,6 +6,8 @@ const Payment = () => {
     const today = new Date();
     const mid = "nickakao1m";
     const merchantKey = "A2SY4ztPs6LPymgFl/5bbsLuINyvgKq5eOdDSHb31gdO4dfGr3O6hBxvRp9oXdat45VninNUySc7E/5UT01vKw==";
+    // const mid = "nictest04m";
+    // const merchantKey = 'b+zhZ4yOZ7FsH8pm5lhDfHZEb79tIwnjsdA0FBXh86yLc6BJeFVrZFXhAoJ3gEWgrWwN+lJMV0W4hvDdbe4Sjw==';
   
     useEffect(() => {
       const script = document.createElement("script");
@@ -249,7 +251,7 @@ const Payment = () => {
         {console.log(checkPlatform(window.navigator.userAgent))}
         {console.log(getFormatDate(today))}
         {console.log(getSignData(`${today.toString("yyyyMMddHHiiss")}${mid}${1000}${merchantKey}`).toString())}
-        <form onSubmit={nicepayStart} name="payForm" method="post" action="https://nicepayment-be-test.herokuapp.com/payment/authReq" acceptCharset="euc-kr">
+        <form onSubmit={nicepayStart} name="payForm" method="post" action="http://localhost:4001/v1/payments" acceptCharset="euc-kr">
           <input type="hidden" name="PayMethod" value="CARD"/>
           <input type="hidden" name="GoodsName" value="테스트제품"/>
           <input type="hidden" name="Amt" value="1000"/>
@@ -258,7 +260,7 @@ const Payment = () => {
           <input type="hidden" name="BuyerName" value="Minwoo Lee"/>
           <input type="hidden" name="BuyerEmail" value="test@example.com"/>
           <input type="hidden" name="BuyerTel" value="01011112222"/>
-          <input type="hidden" name="ReturnURL" value="https://nicepayment-be-test.herokuapp.com/payment/authReq"/>
+          <input type="hidden" name="ReturnURL" value="http://localhost:4001/v1/payments"/>
           <input type="hidden" name="NpLang" value="KO"/>
           <input type="hidden" name="GoodsCl" value="1"/>
           <input type="hidden" name="TransType" value="0"/>
