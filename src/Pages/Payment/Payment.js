@@ -1,11 +1,20 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useEffect } from 'react';
+import './Payment.scss';
+
+const RETURN_URL = "https://payment-be-project.herokuapp.com/payments";
+const DIRECT_PAYMENT_TYPE = "Naver Pay";
 
 const Payment = () => {
     const today = new Date();
-    const mid = "nickakao1m";
-    const merchantKey = "A2SY4ztPs6LPymgFl/5bbsLuINyvgKq5eOdDSHb31gdO4dfGr3O6hBxvRp9oXdat45VninNUySc7E/5UT01vKw==";
+    // Kakao
+    // const mid = "nickakao1m";
+    // const merchantKey = "A2SY4ztPs6LPymgFl/5bbsLuINyvgKq5eOdDSHb31gdO4dfGr3O6hBxvRp9oXdat45VninNUySc7E/5UT01vKw==";
+    // Naver
+    const mid = "nicnaver0m";
+    const merchantKey = "kNuUIpYvHPGcTTlmRsFddsqp6P9JoTcEcoRB1pindAwCZ0oySNuCQX5Zv483XTU5UuRiy/VYZ9BXw1BRvEUYMg==";
+    // Auth
     // const mid = "nictest04m";
     // const merchantKey = 'b+zhZ4yOZ7FsH8pm5lhDfHZEb79tIwnjsdA0FBXh86yLc6BJeFVrZFXhAoJ3gEWgrWwN+lJMV0W4hvDdbe4Sjw==';
   
@@ -245,23 +254,23 @@ const Payment = () => {
       <div className="Payment">
         <header className="Payment-header">
           <script src="https://web.nicepay.co.kr/v3/webstd/js/nicepay-3.0.js" type="text/javascript"></script>
-          <Button onClick={() => nicepayStart()}>카카오페이</Button>
+          <Button className="payment-button" onClick={() => nicepayStart()}>{DIRECT_PAYMENT_TYPE}</Button>
         </header>
         {console.log(window)}
         {console.log(checkPlatform(window.navigator.userAgent))}
         {console.log(getFormatDate(today))}
         {console.log(getSignData(`${today.toString("yyyyMMddHHiiss")}${mid}${1000}${merchantKey}`).toString())}
-        <form onSubmit={nicepayStart} name="payForm" method="post" action="https://payment-be-project.herokuapp.com/payments" acceptCharset="euc-kr">
+        <form onSubmit={nicepayStart} name="payForm" method="post" action={RETURN_URL} acceptCharset="euc-kr">
           <input type="hidden" name="PayMethod" value="CARD"/>
           <input type="hidden" name="GoodsName" value="테스트제품"/>
           <input type="hidden" name="Amt" value="1000"/>
-          <input type="hidden" name="MID" value="nickakao1m"/>
+          <input type="hidden" name="MID" value={mid}/>
           <input type="hidden" name="Moid" value="mnoid1234567890"/>
           <input type="hidden" name="BuyerName" value="Minwoo Lee"/>
           <input type="hidden" name="BuyerEmail" value="test@example.com"/>
           <input type="hidden" name="BuyerTel" value="01011112222"/>
           {/* <input type="hidden" name="ReturnURL" value="http://localhost:4001/v1/payments"/> */}
-          <input type="hidden" name="ReturnURL" value="https://payment-be-project.herokuapp.com/payments"/>
+          <input type="hidden" name="ReturnURL" value={RETURN_URL}/>
           <input type="hidden" name="NpLang" value="KO"/>
           <input type="hidden" name="GoodsCl" value="1"/>
           <input type="hidden" name="TransType" value="0"/>
