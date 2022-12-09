@@ -251,7 +251,7 @@ const Payment = () => {
         {console.log(checkPlatform(window.navigator.userAgent))}
         {console.log(getFormatDate(today))}
         {console.log(getSignData(`${today.toString("yyyyMMddHHiiss")}${mid}${1000}${merchantKey}`).toString())}
-        <form onSubmit={nicepayStart} name="payForm" method="post" action="http://localhost:4001/v1/payments" acceptCharset="euc-kr">
+        <form onSubmit={nicepayStart} name="payForm" method="post" action="https://payment-be-project.herokuapp.com/payments" acceptCharset="euc-kr">
           <input type="hidden" name="PayMethod" value="CARD"/>
           <input type="hidden" name="GoodsName" value="테스트제품"/>
           <input type="hidden" name="Amt" value="1000"/>
@@ -260,7 +260,8 @@ const Payment = () => {
           <input type="hidden" name="BuyerName" value="Minwoo Lee"/>
           <input type="hidden" name="BuyerEmail" value="test@example.com"/>
           <input type="hidden" name="BuyerTel" value="01011112222"/>
-          <input type="hidden" name="ReturnURL" value="http://localhost:4001/v1/payments"/>
+          {/* <input type="hidden" name="ReturnURL" value="http://localhost:4001/v1/payments"/> */}
+          <input type="hidden" name="ReturnURL" value="https://payment-be-project.herokuapp.com/payments"/>
           <input type="hidden" name="NpLang" value="KO"/>
           <input type="hidden" name="GoodsCl" value="1"/>
           <input type="hidden" name="TransType" value="0"/>
