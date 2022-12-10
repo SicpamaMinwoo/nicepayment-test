@@ -278,7 +278,9 @@ const Payment = () => {
           <input type="hidden" name="EdiDate" value={getFormatDate(today)}/>
           <input type="hidden" name="SignData" value={getSignData(`${getFormatDate(today)}${mid}${1000}${merchantKey}`).toString()}/>
           <input type="hidden" name="DirectShowOpt" value="CARD"/>
-          <input type="hidden" name="NicepayReserved" value="DirectKakao=Y"/>
+          {/* <input type="hidden" name="NicepayReserved" value="DirectKakao=Y"/> */}
+          <input type="hidden" name="DirectEasyPay" value="E020"/>
+          <input type="hidden" name="EasyPayMethod" value="E020=CARD"/>
         </form>
       </div>
     );
