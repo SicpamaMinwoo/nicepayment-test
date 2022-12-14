@@ -1,38 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom/client'
 import { Button } from 'react-bootstrap';
 import { useEffect } from 'react';
 import './Payment.scss';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
 
-const RETURN_URL = "https://payment-be-project.herokuapp.com/payments";
+// const RETURN_URL = "https://payment-be-project.herokuapp.com/payments";
+const RETURN_URL = "http://localhost:4001/payments";
 const DIRECT_PAYMENT_TYPE = "Naver Pay";
 
 const Payment = () => {
+  const navigate = useNavigate();
     const today = new Date();
     // Kakao
     // const mid = "nickakao1m";
     // const merchantKey = "A2SY4ztPs6LPymgFl/5bbsLuINyvgKq5eOdDSHb31gdO4dfGr3O6hBxvRp9oXdat45VninNUySc7E/5UT01vKw==";
     // Naver
-    const mid = "nicnaver0m";
-    const merchantKey = "kNuUIpYvHPGcTTlmRsFddsqp6P9JoTcEcoRB1pindAwCZ0oySNuCQX5Zv483XTU5UuRiy/VYZ9BXw1BRvEUYMg==";
+    // const mid = "nicnaver0m";
+    // const merchantKey = "kNuUIpYvHPGcTTlmRsFddsqp6P9JoTcEcoRB1pindAwCZ0oySNuCQX5Zv483XTU5UuRiy/VYZ9BXw1BRvEUYMg==";
     // Auth
-    // const mid = "nictest04m";
-    // const merchantKey = 'b+zhZ4yOZ7FsH8pm5lhDfHZEb79tIwnjsdA0FBXh86yLc6BJeFVrZFXhAoJ3gEWgrWwN+lJMV0W4hvDdbe4Sjw==';
+    const mid = "nictest04m";
+    const merchantKey = 'b+zhZ4yOZ7FsH8pm5lhDfHZEb79tIwnjsdA0FBXh86yLc6BJeFVrZFXhAoJ3gEWgrWwN+lJMV0W4hvDdbe4Sjw==';
   
     useEffect(() => {
-      const script = document.createElement("script");
-      script.src = "https://web.nicepay.co.kr/v3/webstd/js/nicepay-3.0.js";
-      script.async = true;
+      // const script = document.createElement("script");
+      // script.src = "https://web.nicepay.co.kr/v3/webstd/js/nicepay-3.0.js";
+      // script.async = true;
   
-      document.body.appendChild(script);
+      // document.body.appendChild(script);
   
-      return () => {
-        document.body.removeChild(script);
-      }
+      // return () => {
+      //   document.body.removeChild(script);
+      // }
+      navigate('?key=test');
     }, []);
   
     const nicepayStart = () => {
       if(checkPlatform(window.navigator.userAgent) === "mobile"){
-        document.payForm.action = "https://web.nicepay.co.kr/v3/v3Payment.jsp";
+        // document.payForm.action = "https://web.nicepay.co.kr/v3/v3Payment.jsp";
         document.payForm.acceptCharset="euc-kr";
         document.payForm.submit();
       }
@@ -41,6 +47,107 @@ const Payment = () => {
         // window.goPay(document.payForm);
       }
     };
+
+    const clickEvent = () => {
+      const requestData = {
+        PayMethod: 'CARD',
+        GoodsName: '테스트제품',
+        Amt: '1000',
+        MID: mid,
+        Moid: 'mnoid1234567890',
+        BuyerName: 'Minwoo',
+        BuyerEmail: 'test@example.com',
+        BuyerTel: '01011112222',
+        ReturnURL: RETURN_URL,
+        NpLang: 'KO',
+        GoodsCl: '1',
+        TransType: '0',
+        CharSet: 'utf-8',
+        EdiDate: getFormatDate(today),
+        SignData: getSignData(`${getFormatDate(today)}${mid}${1000}${merchantKey}`).toString(),
+        DirectShowOpt: 'CARD',
+        DirectEasyPay: 'E020',
+        EasyPayMethod: 'E020=CARD'
+      }
+      let childElements = [];
+
+      for (const property in requestData) {
+          childElements.push(React.createElement('input', {key: property, type: 'hidden', name: property, value: requestData.property}));
+      }
+      
+      const form = React.createElement('form', {name: 'payForm', action: "https://web.nicepay.co.kr/v3/v3Payment.jsp", acceptCharset: "euc-kr"}, childElements);
+      ReactDOM.createRoot(document.getElementById('payment-div')).render(form);
+      console.log(document.payForm);
+      document.payForm.submit();
+    }
+
+    const testPayment = async () => {
+      const options = {
+        baseURL: 'https://web.nicepay.co.kr',
+        url: '/v3/v3Payment.jsp',
+        method: 'post',
+        headers: {
+            // 'User-Agent': 'Super Agent/0.0.1',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Access-Control-Allow-Origin': 'https://localhost:4000',
+            'Access-Control-Allow-Credentials': 'true',
+        },
+        params: {
+          PayMethod: 'CARD',
+          GoodsName: '테스트제품',
+          Amt: '1000',
+          MID: mid,
+          Moid: 'mnoid1234567890',
+          BuyerName: 'Minwoo',
+          BuyerEmail: 'test@example.com',
+          BuyerTel: '01011112222',
+          ReturnURL: RETURN_URL,
+          NpLang: 'KO',
+          GoodsCl: '1',
+          TransType: '0',
+          CharSet: 'utf-8',
+          EdiDate: getFormatDate(today),
+          SignData: getSignData(`${getFormatDate(today)}${mid}${1000}${merchantKey}`).toString(),
+          DirectShowOpt: 'CARD',
+          DirectEasyPay: 'E020',
+          EasyPayMethod: 'E020=CARD'
+        },
+      };
+      const response = await axios(options);
+      console.log(response);
+    }
+
+    const fetchForm = () => {
+      const form = new FormData();
+      form.append('PayMethod', 'CARD');
+      form.append('GoodsName', '테스트제품');
+      form.append('Amt', '1000');
+      form.append('MID', mid);
+      form.append('Moid', 'mnoid1234567890');
+      form.append('BuyerName', 'Minwoo');
+      form.append('BuyerEmail', 'test@example.com');
+      form.append('BuyerTel', '01011112222');
+      form.append('ReturnURL', RETURN_URL);
+      form.append('NpLang', 'KO');
+      form.append('CharSet', 'utf-8');
+      form.append('GoodsCl', '1');
+      form.append('TransType', '0');
+      form.append('EdiDate', getFormatDate(today));
+      form.append('SignData', getSignData(`${getFormatDate(today)}${mid}${1000}${merchantKey}`).toString());
+      form.append('DirectShowOpt', 'CARD');
+      form.append('DirectEasyPay', 'E020');
+      form.append('EasyPayMethod', 'E020=CARD');
+
+      fetch('https://web.nicepay.co.kr/v3/v3Payment.jsp', {
+        method: 'post',
+        body: form
+      });
+
+      // const request = new XMLHttpRequest();
+      // request.open('POST', 'https://web.nicepay.co.kr/v3/v3Payment.jsp');
+      // request.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+      // request.send(form);
+    }
   
     const checkPlatform = (ua) => {
       if(ua === undefined) {
@@ -249,18 +356,23 @@ const Payment = () => {
       const second = Number(date.getSeconds()) >= 10 ? date.getSeconds() : `0${String(date.getSeconds())}`;
       return `${year}${month}${day}${hour}${minute}${second}`;
   };
+
+  const renderElements = () => {
+    
+  }
   
     return (
-      <div className="Payment">
+      <div className="Payment" id="payment-div">
         <header className="Payment-header">
-          <script src="https://web.nicepay.co.kr/v3/webstd/js/nicepay-3.0.js" type="text/javascript"></script>
+          {/* <script src="https://web.nicepay.co.kr/v3/webstd/js/nicepay-3.0.js" type="text/javascript"></script> */}
+          {/* <Button className="payment-button" onClick={() => nicepayStart()}>{DIRECT_PAYMENT_TYPE}</Button> */}
           <Button className="payment-button" onClick={() => nicepayStart()}>{DIRECT_PAYMENT_TYPE}</Button>
         </header>
         {console.log(window)}
         {console.log(checkPlatform(window.navigator.userAgent))}
         {console.log(getFormatDate(today))}
         {console.log(getSignData(`${today.toString("yyyyMMddHHiiss")}${mid}${1000}${merchantKey}`).toString())}
-        <form onSubmit={nicepayStart} name="payForm" method="post" action={RETURN_URL} acceptCharset="euc-kr">
+        <form name="payForm" method="post" action={"https://web.nicepay.co.kr/v3/v3Payment.jsp"} acceptCharset="euc-kr">
           <input type="hidden" name="PayMethod" value="CARD"/>
           <input type="hidden" name="GoodsName" value="테스트제품"/>
           <input type="hidden" name="Amt" value="1000"/>
@@ -279,8 +391,8 @@ const Payment = () => {
           <input type="hidden" name="SignData" value={getSignData(`${getFormatDate(today)}${mid}${1000}${merchantKey}`).toString()}/>
           <input type="hidden" name="DirectShowOpt" value="CARD"/>
           {/* <input type="hidden" name="NicepayReserved" value="DirectKakao=Y"/> */}
-          <input type="hidden" name="DirectEasyPay" value="E020"/>
-          <input type="hidden" name="EasyPayMethod" value="E020=CARD"/>
+          {/* <input type="hidden" name="DirectEasyPay" value="E020"/>
+          <input type="hidden" name="EasyPayMethod" value="E020=CARD"/> */}
         </form>
       </div>
     );
