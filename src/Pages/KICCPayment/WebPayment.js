@@ -19,7 +19,7 @@ const WebPayment = () => {
         currency: '00',
         amount: '1000',
         clientTypeCode: '00',
-        returnUrl: process.env.REACT_APP_PAYMENT_REDIRECT_URL,
+        returnUrl: `${process.env.REACT_APP_PAYMENT_REDIRECT_URL}/kicc-webpay`,
         shopOrderNo: 'testItem1234',
         deviceTypeCode: 'mobile',
         langFlag: 'KOR',
