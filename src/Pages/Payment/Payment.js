@@ -6,8 +6,8 @@ import './Payment.scss';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 
-// const RETURN_URL = "https://payment-be-project.herokuapp.com/payments";
-const RETURN_URL = "http://localhost:4001/payments?key=test";
+const RETURN_URL = "https://payment-be-project.herokuapp.com/payments";
+// const RETURN_URL = "http://localhost:4001/payments?key=test";
 const DIRECT_PAYMENT_TYPE = "Naver Pay";
 
 const Payment = () => {
@@ -23,7 +23,7 @@ const Payment = () => {
     const mid = "nictest04m";
     const merchantKey = 'b+zhZ4yOZ7FsH8pm5lhDfHZEb79tIwnjsdA0FBXh86yLc6BJeFVrZFXhAoJ3gEWgrWwN+lJMV0W4hvDdbe4Sjw==';
 
-    let callbackUrl = new URL('http://localhost:4001/payments?key=test');
+    let callbackUrl = new URL('https://moonlit-malasada-b6827e.netlify.app/?key=test');
     let params = new URLSearchParams(callbackUrl.search);
 
     params.append('countryCode', 'kr');
