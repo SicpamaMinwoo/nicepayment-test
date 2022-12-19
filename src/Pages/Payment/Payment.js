@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 
 // const RETURN_URL = "https://payment-be-project.herokuapp.com/payments";
-const RETURN_URL = "http://localhost:4001/payments";
+const RETURN_URL = "http://localhost:4001/payments?key=test";
 const DIRECT_PAYMENT_TYPE = "Naver Pay";
 
 const Payment = () => {
@@ -22,6 +22,13 @@ const Payment = () => {
     // Auth
     const mid = "nictest04m";
     const merchantKey = 'b+zhZ4yOZ7FsH8pm5lhDfHZEb79tIwnjsdA0FBXh86yLc6BJeFVrZFXhAoJ3gEWgrWwN+lJMV0W4hvDdbe4Sjw==';
+
+    let callbackUrl = new URL('http://localhost:4001/payments?key=test');
+    let params = new URLSearchParams(callbackUrl.search);
+
+    params.append('countryCode', 'kr');
+    params.append('orderId', '1');
+    console.log(callbackUrl);
   
     useEffect(() => {
       // const script = document.createElement("script");
@@ -38,13 +45,13 @@ const Payment = () => {
   
     const nicepayStart = () => {
       if(checkPlatform(window.navigator.userAgent) === "mobile"){
-        // document.payForm.action = "https://web.nicepay.co.kr/v3/v3Payment.jsp";
+        document.payForm.action = "https://web.nicepay.co.kr/v3/v3Payment.jsp";
         document.payForm.acceptCharset="euc-kr";
         document.payForm.submit();
       }
       else{
         console.log("Sorry, we don't support PC environment.");
-        // window.goPay(document.payForm);
+        window.goPay(document.payForm);
       }
     };
 
@@ -149,6 +156,7 @@ const Payment = () => {
       // request.send(form);
     }
   
+    // isMobile
     const checkPlatform = (ua) => {
       if(ua === undefined) {
         ua = window.navigator.userAgent;
