@@ -391,6 +391,7 @@ const Payment = () => {
           <input type="hidden" name="BuyerTel" value="01011112222"/>
           {/* <input type="hidden" name="ReturnURL" value="http://localhost:4001/v1/payments"/> */}
           <input type="hidden" name="ReturnURL" value={RETURN_URL}/>
+          <input type="hidden" name="WapUrl" value={callbackUrl}/>
           <input type="hidden" name="NpLang" value="KO"/>
           <input type="hidden" name="GoodsCl" value="1"/>
           <input type="hidden" name="TransType" value="0"/>
