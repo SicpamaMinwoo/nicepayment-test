@@ -14,7 +14,7 @@ const KakaoPayment = () => {
         mall_nm: 'sicpama',
         order_no: 'test123456',
         product_nm: 'test item',
-        product_amt: '1000',
+        product_amt: '500',
         return_url: `${process.env.REACT_APP_PAYMENT_REDIRECT_URL}/kicc-kakao`,
         charset: 'EUC-KR',
         usedcard_code: '',
