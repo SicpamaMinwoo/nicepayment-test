@@ -45,7 +45,7 @@ const KakaoPayment = () => {
                 <input type="hidden" name="mall_nm" value="sicpama"/>
                 <input type="hidden" name="order_no" value="test123456"/>
                 <input type="hidden" name="product_nm" value="test item"/>
-                <input type="hidden" name="product_amt" value={'1000'}/>
+                <input type="hidden" name="product_amt" value={'500'}/>
                 <input type="hidden" name="return_url" value={`${process.env.REACT_APP_PAYMENT_REDIRECT_URL}/kicc-kakao`}/>
                 <input type="hidden" name="charset" value="EUC-KR"/>
                 <input type="hidden" name="usedcard_code" value=""/>
