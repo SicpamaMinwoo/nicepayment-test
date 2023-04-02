@@ -365,8 +365,8 @@ const Payment = () => {
       return `${year}${month}${day}${hour}${minute}${second}`;
   };
 
-  const renderElements = () => {
-    
+  const findPrinter = () => {
+    navigate('/receipt-printers');
   }
   
     return (
@@ -375,6 +375,7 @@ const Payment = () => {
           {/* <script src="https://web.nicepay.co.kr/v3/webstd/js/nicepay-3.0.js" type="text/javascript"></script> */}
           {/* <Button className="payment-button" onClick={() => nicepayStart()}>{DIRECT_PAYMENT_TYPE}</Button> */}
           <Button className="payment-button" onClick={() => nicepayStart()}>{DIRECT_PAYMENT_TYPE}</Button>
+          <Button onClick={() => findPrinter()}>Receipt Print</Button>
         </header>
         {console.log(window)}
         {console.log(checkPlatform(window.navigator.userAgent))}

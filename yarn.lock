@@ -2346,6 +2346,19 @@
   dependencies:
     "@babel/runtime" "^7.6.2"
 
+"@react-thermal-printer/image@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@react-thermal-printer/image/-/image-0.9.1.tgz#af398de3094ec39999456778945e404e6b97fd75"
+  integrity sha512-lmIcEhDu8qo2Bn1f0dDGLHORUtUfnfkYaRv2DiqhLX5jDHWI78JakGYTDNvF0BBxcvr4zJgBMXV7NbYYLH/VpA==
+
+"@react-thermal-printer/printer@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@react-thermal-printer/printer/-/printer-0.10.0.tgz#5da9c1878458ecc2680100f6fd4d5eb57d07615b"
+  integrity sha512-aTL6y/k+1IeCVztE1Ebw2DIaEl6AgGIyHE7En9GAcOxIvQxtDsbFk/LCQxfwsSndiWyPIVadfVT/uAQDLC8VaQ==
+  dependencies:
+    "@react-thermal-printer/image" "^0.9.1"
+    iconv-lite "^0.6.3"
+
 "@restart/hooks@^0.4.6", "@restart/hooks@^0.4.7":
   version "0.4.7"
   resolved "https://registry.yarnpkg.com/@restart/hooks/-/hooks-0.4.7.tgz#d79ca6472c01ce04389fc73d4a79af1b5e33cd39"
@@ -12854,6 +12867,21 @@ react-scripts@5.0.1:
     workbox-webpack-plugin "^6.4.1"
   optionalDependencies:
     fsevents "^2.3.2"
+
+react-thermal-printer@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/react-thermal-printer/-/react-thermal-printer-0.11.0.tgz#7606ff010033d281627a7140275187d413acbf40"
+  integrity sha512-8SjchmwEH9QE0Q5lc5vdiditeuv5z39eDNXfZRbWGplbq7lz0jVGfVm4XuNoRb+x9XJaUXrjR87Kl+uTMPWohg==
+  dependencies:
+    "@react-thermal-printer/printer" "^0.10.0"
+    classnames "^2.3.1"
+
+react-to-print@^2.14.12:
+  version "2.14.12"
+  resolved "https://registry.yarnpkg.com/react-to-print/-/react-to-print-2.14.12.tgz#e3ecddca2a03eddef1773ffb7c1a63c140f44036"
+  integrity sha512-qFJAwvDFd95Z+FWNqitt+HaB1/z+Zdd0MMrNOPUSus3fG32vqv512yB+HXhQ94J3HKoyqaIg44v0Zfc6xUBqlg==
+  dependencies:
+    prop-types "^15.8.1"
 
 react-transition-group@^4.4.2:
   version "4.4.5"

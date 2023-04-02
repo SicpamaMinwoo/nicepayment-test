@@ -10,6 +10,7 @@ import BatchPayment from './Pages/KICCPayment/BatchPayment';
 import KakaoPayment from './Pages/KICCPayment/KakaoPayment';
 import NaverPayment from './Pages/KICCPayment/NaverPayment';
 import KICCSamsungPayment from './Pages/KICCPayment/SamsungPayment';
+import ReceiptPrinter from './Pages/ReceiptPrinter/ReceiptPrinter';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route exact path="/kicc-kakao" element={<KakaoPayment />}/>
           <Route exact path="/kicc-naver" element={<NaverPayment />} />
           <Route exact path="/kicc-samsung" element={<KICCSamsungPayment />} />
+          <Route exact path="/receipt-printers" element={<ReceiptPrinter />} />
         </Routes>
       </BrowserRouter>
     </div>
